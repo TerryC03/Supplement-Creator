@@ -45,7 +45,7 @@ private static final double carbs = 4; // kcal per gram
 		proteinWeight();
 		// Private 5 digit strings for Authorization Code:
 	}
-		public static void nameOfprotein(){
+		public static String nameOfprotein(){
 			System.out.println("Creating Protein Type: ");
 			System.out.println("Name of Protein: ");
 			nameOfprotein  = input.nextLine();
@@ -53,13 +53,17 @@ private static final double carbs = 4; // kcal per gram
 			Pattern pattern = Pattern.compile(nameOfproteinCheck);
 			Matcher patternMatcher = pattern.matcher(nameOfprotein);
 			if (!patternMatcher.matches()){
+				do{
 				System.out.println("Incorrect input:\n"
 						+ "1) Shorten the name of the protein less than 77 characters;\n"
 						+ "2) Only alphabet characters are allowed.");
-				nameOfprotein();
+				return nameOfprotein();
 	}
-		
+			while (!patternMatcher.matches());
 		}
+			return nameOfprotein;
+		}
+		
 		
 		
 			
@@ -106,7 +110,7 @@ private static final double carbs = 4; // kcal per gram
 		}
 		
 		
-		public static String[] addIngredients(){
+		public static List<String> addIngredients(){
 			
 			System.out.println("How many ingredients will you add? Enter whole number now:");
 			int amount = input.nextInt();
@@ -121,11 +125,9 @@ private static final double carbs = 4; // kcal per gram
 			}
 			System.out.println(addedIngredients.size());
 			System.out.print(addedIngredients);
-			String[] savedIngredients = addedIngredients.toArray(new String[amount]);
-			System.out.println(Arrays.toString(savedIngredients));
 			System.out.println(": Accept?\n 1 (Yes) / 2 (No)");
 			choices(addedIngredients, amount);
-			return savedIngredients;
+			return addIngredients();
 		}
 			public static  List<String> choices(List<String> addedIngredients, int amount){
 				
@@ -175,10 +177,11 @@ private static final double carbs = 4; // kcal per gram
 				System.out.print(addedIngredients + "\nHow many would you like to edit?");
 				int amountEdit = input.nextInt();
 					if (amount >= amountEdit){
-						do{
-							for (int i = 0; i <= amountEdit; i++){
 						System.out.println(addedIngredients);
 						System.out.println("Type the name of the ingredient of which you want to edit:");
+			
+						do{
+							for (int i = 0; i <= amountEdit; i++){
 						
 						String findIngredient = input.nextLine();
 						if (addedIngredients.contains(findIngredient)){
